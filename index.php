@@ -1,5 +1,11 @@
 <?PHP
 	include 'config/database.php';
+
+    // Create insert statement
+    $query="INSERT into appointments (appointmentID, userID, adminID ) VALUES (1234, 12345, 123456)";
+    // run insert
+    $stmt=$con->prepare($query);
+    $stmt->execute();
 ?>
 
 
@@ -33,7 +39,7 @@
 									<li><a href="right-sidebar.html">Recent Projects</a></li>
 									<li><a href="no-sidebar.html">No Sidebar</a></li>
 									<li><a href="contact.html">Contact</a></li>
-									<li><a href="login.html">Log-In</a></li>
+									<li><a href="contact.html">Log-In</a></li>
 									<li class="submenu">
 										<a href="#">Submenu</a>
 										<ul>
@@ -46,8 +52,8 @@
 									</li>
 								</ul>
 							</li>
-							<li><a href="createaccount.html" class="button primary">Sign Up</a></li>
-							<li><a href="login.html" class="button primary">Log-In</a></li>
+							<li><a href="#" class="button primary">Sign Up</a></li>
+							<li><a href="contact.html" class="button primary">Log-In</a></li>
 						</ul>
 					</nav>
 				</header>
@@ -84,13 +90,16 @@
 				<article id="main">
 
 					<header class="special container">
-						<form>
-							<label for="fname">First name:</label><br>
-							<input type="text" id="fname" name="fname"><br>
-							<label for="lname">Last name:</label><br>
-							<input type="text" id="lname" name="lname">
-							<input id="submitbutt" type="submit" value="Submit">
-						  </form>
+						<span class="icon solid fa-chart-bar"></span>
+						<h2>As this is my <strong>twentieth</strong> freebie for HTML5 UP
+						<br />
+						I decided to give it a really creative name.</h2>
+						<p>Turns out <strong>Twenty</strong> was the best I could come up with. Anyway, lame name aside,
+						<br />
+						it's minimally designed, fully responsive, built on HTML5/CSS3,
+						and, like all my stuff,
+						<br />
+						released for free under the <a href="http://html5up.net/license">Creative Commons Attribution 3.0</a> license. Have fun!</p>
 					</header>
 				</article>
 
