@@ -197,6 +197,12 @@ input, select, textarea {
 				.container.medium {
 					width: 900px;
 				}
+				form #submitbutt {
+					margin-top: 20px;
+				}
+				form #comment {
+					margin-top: 20px;
+				}
 
 		}
 
@@ -208,6 +214,12 @@ input, select, textarea {
 
 				.container.medium {
 					width: 735px;
+				}
+				form #submitbutt {
+					margin-top: 20px;
+				}
+				form #comment {
+					margin-top: 20px;
 				}
 
 		}
@@ -221,6 +233,12 @@ input, select, textarea {
 				.container.medium {
 					width: 71.25%;
 				}
+				form #submitbutt {
+					margin-top: 20px;
+				}
+				form #comment {
+					margin-top: 20px;
+				}
 
 		}
 
@@ -233,6 +251,12 @@ input, select, textarea {
 				.container.medium {
 					width: 95%;
 				}
+				form #submitbutt {
+					margin-top: 20px;
+				}
+				form #comment {
+					margin-top: 20px;
+				}
 
 		}
 
@@ -244,6 +268,12 @@ input, select, textarea {
 
 				.container.medium {
 					width: 100%;
+				}
+				form #submitbutt {
+					margin-top: 20px;
+				}
+				form #comment {
+					margin-top: 20px;
 				}
 
 		}
