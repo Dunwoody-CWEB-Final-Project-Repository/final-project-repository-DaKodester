@@ -1,4 +1,32 @@
+<?PHP
+	include 'config/database.php'; 
+	echo htmlspecialchars($_POST['firstName']);
+	$php_errormsg = "";
+	if (!empty($_POST))
+	{
+		// Declaration of strings
+		$password = ($_POST['password']);
+		$conpassword = ($_POST['conPassword']);
+  
+		// Use == operator
+		if ($password == $conpassword) {
+    		$query="INSERT into users (firstName, lastName, email, cust_password) VALUES (:firstName, :lastName, :email, :cust_password)";
+			$stmt=$con->prepare($query);
+			$stmt->bindParam(":firstName",$_POST['firstName'],PDO::PARAM_STR);
+			$stmt->bindParam(":lastName",$_POST['lastName'],PDO::PARAM_STR);
+			$stmt->bindParam(":email",$_POST['email'],PDO::PARAM_STR);
+			$stmt->bindParam(":cust_password",$_POST['password'],PDO::PARAM_STR);
+			$stmt->execute();
+		}
+		else {
+    		$php_errormsg = "Passwords do not match.";
+		}
+		
+	}
+?>
+
 <!DOCTYPE HTML>
+
 <!--
 	Twenty by HTML5 UP
 	html5up.net | @ajlkn
@@ -17,10 +45,10 @@
 
 			<!-- Header -->
 				<header id="header">
-					<h1 id="logo"><a href="index.html">Twenty <span>by HTML5 UP</span></a></h1>
+					<h1 id="logo"><a href="index.php">Twenty <span>by HTML5 UP</span></a></h1>
 					<nav id="nav">
 						<ul>
-							<li class="current"><a href="index.html">Welcome</a></li>
+							<li class="current"><a href="index.php">Welcome</a></li>
 							<li class="submenu">
 								<a href="#">Layouts</a>
 								<ul>
@@ -59,7 +87,7 @@
 
 							<!-- Content -->
 								<div class="content">
-									<form>
+									<form method="POST" action="createaccount.php">
 										<div class="row gtr-50">
 											<div class="col-6 col-12-mobile">
 												<input type="text" name="firstName" placeholder="First Name" />
@@ -81,6 +109,11 @@
 													<li><input type="submit" class="special" value="Make Account" /></li>
 												</ul>
 											</div>
+											<div>
+												<?php
+													echo $php_errormsg;
+												?>
+											</div>	
 										</div>
 									</form>
 								</div>
