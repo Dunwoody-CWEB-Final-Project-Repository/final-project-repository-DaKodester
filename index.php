@@ -55,7 +55,7 @@
 
 							<li><a href="createaccount.php" class="button primary">Sign Up</a></li>
 
-							<li><a href="login.html" class="button primary">Log-In</a></li>
+							<li><a href="login.php" class="button primary">Log-In</a></li>
 						</ul>
 					</nav>
 				</header>
@@ -88,18 +88,29 @@
 
 				</section>
 				
-			<!-- Main -->
-				<article id="main">
+
+				<?php
+					include 'config/database.php';
+
+					echo htmlspecialchars($_POST['fname']);
+					echo htmlspecialchars($_POST['lname']);
+					echo htmlspecialchars($_POST['email']);
+					echo htmlspecialchars($_POST['comment']);
+				?>
+				<!-- Main -->
+				<article id="main">	
 
 					<header class="special container">
-						<form>
+						
+						<form form method="POST" action="index.php">
 							<label for="fname">First name:</label><br>
 							<input type="text" id="fname" name="fname">
 							<label for="lname">Last name:</label><br>
 							<input type="text" id="lname" name="lname">
 							<label for="lname">Email:</label><br>
-							<input type="text" id="Email" name="Email">
-							<textarea id="comment" form="usrform">Enter description of what you want done...</textarea>
+							<input type="text" id="email" name="email">
+							<textarea type="text" id="comment" name="comment">Enter description of what you want done...</textarea>
+							
 							<input id="submitbutt" type="submit" value="Create Appointment">
 						  </form>
 					</header>
