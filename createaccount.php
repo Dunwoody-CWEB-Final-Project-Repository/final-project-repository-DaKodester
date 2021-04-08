@@ -1,6 +1,5 @@
 <?PHP
 	include 'config/database.php'; 
-	echo htmlspecialchars($_POST['firstName']);
 	$php_errormsg = "";
 	if (!empty($_POST))
 	{
