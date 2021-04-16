@@ -91,11 +91,19 @@
 
 				<?php
 					include 'config/database.php';
-
-					echo htmlspecialchars($_POST['fname']);
-					echo htmlspecialchars($_POST['lname']);
-					echo htmlspecialchars($_POST['email']);
-					echo htmlspecialchars($_POST['comment']);
+					$php_errormsg = "";
+					if (!empty($_POST)){
+						$query="INSERT into appointments (fname, lname, email, description) VALUES (:fname, :lname, :email, :description)";
+						$stmt=$con->prepare($query);
+						$stmt->bindParam(":fname",$_POST['fname'],PDO::PARAM_STR);
+						$stmt->bindParam(":lname",$_POST['lname'],PDO::PARAM_STR);
+						$stmt->bindParam(":email",$_POST['email'],PDO::PARAM_STR);
+						$stmt->bindParam(":description",$_POST['description'],PDO::PARAM_STR);
+						$stmt->execute();
+					}else {
+						$php_errormsg = "Please Fully fill out form.";
+					}
+						
 				?>
 				<!-- Main -->
 				<article id="main">	
@@ -109,7 +117,7 @@
 							<input type="text" id="lname" name="lname">
 							<label for="lname">Email:</label><br>
 							<input type="text" id="email" name="email">
-							<textarea type="text" id="comment" name="comment">Enter description of what you want done...</textarea>
+							<textarea type="text" id="description" name="description">Enter description of what you want done...</textarea>
 							
 							<input id="submitbutt" type="submit" value="Create Appointment">
 						  </form>
