@@ -1,11 +1,15 @@
 <?PHP
 	include 'config/database.php'; 
 	$php_errormsg = "";
-	if (!empty($_POST))
+	if ( isset($_POST ['signup'] ) )
 	{
 		// Declaration of strings
 		$password = ($_POST['password']);
 		$conpassword = ($_POST['conPassword']);
+
+		//Password hashing
+		$options = [ 'cost' => 12 ];
+		$hashedpass = password_hash( $password, PASSWORD_BCRYPT, $options );
   
 		// Use == operator
 		if ($password == $conpassword) {
@@ -14,7 +18,8 @@
 			$stmt->bindParam(":firstName",$_POST['firstName'],PDO::PARAM_STR);
 			$stmt->bindParam(":lastName",$_POST['lastName'],PDO::PARAM_STR);
 			$stmt->bindParam(":email",$_POST['email'],PDO::PARAM_STR);
-			$stmt->bindParam(":cust_password",$_POST['password'],PDO::PARAM_STR);
+			//checking hashpass
+			$stmt->bindParam(":cust_password",$hashedpass,PDO::PARAM_STR);
 			$stmt->execute();
 		}
 		else {
@@ -105,7 +110,7 @@
 											</div>
 											<div class="col-12">
 												<ul class="buttons">
-													<li><input type="submit" class="special" value="Make Account" /></li>
+													<li><input name="signup" type="submit" class="special" value="Make Account" /></li>
 												</ul>
 											</div>
 											<div>

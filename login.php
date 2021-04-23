@@ -23,7 +23,7 @@ echo htmlspecialchars($_POST['password']);
 
           <input name="email" class="un " type="text" align="center" placeholder="Email">
           <input name="password" class="pass" type="password" align="center" placeholder="Password">
-          <input type="submit" class="special" value="Make Account" />
+          <input type="submit" id="submitbutt" value="Log-In" />
                 
                   
         </form>

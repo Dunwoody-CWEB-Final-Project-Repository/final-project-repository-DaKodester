@@ -176,6 +176,14 @@ input, select, textarea {
 		padding: 1em 0 1em 2em;
 	}
 
+	form #submitbutt {
+		margin-top: 30px;
+	}
+
+	form #readbutt {
+		margin-top: 20px;
+	}
+
 /* Container */
 
 	.container {
@@ -2185,6 +2193,14 @@ input, select, textarea {
 		text-transform: uppercase;
 	}
 
+		form #submitbutt {
+			margin-top: 30px;
+		}
+
+		form #readbutt {
+			margin-top: 20px;
+		}
+
 		input[type="button"]:hover,
 		input[type="submit"]:hover,
 		input[type="reset"]:hover,
@@ -3370,6 +3386,10 @@ input, select, textarea {
 			}
 			
 			form #submitbutt {
+				margin-top: 30px;
+			}
+
+			form #readbutt {
 				margin-top: 20px;
 			}
 

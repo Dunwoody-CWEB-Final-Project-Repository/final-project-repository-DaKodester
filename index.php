@@ -1,11 +1,5 @@
 <?PHP
 	include 'config/database.php';
-
-    // Create insert statement
-    /*$query="INSERT into appointments (appointmentID, userID, adminID ) VALUES (1234, 12345, 123456)";
-    // run insert
-    $stmt=$con->prepare($query);
-    $stmt->execute();*/
 ?>
 
 
@@ -31,7 +25,7 @@
 					<h1 id="logo"><a href="index.html">Cody's <span>Car Wash</span></a></h1>
 					<nav id="nav">
 						<ul>
-							<li class="current"><a href="index.html">Welcome</a></li>
+							<li class="current"><a href="index.php">Welcome</a></li>
 							<li class="submenu">
 								<a href="#">Menu</a>
 								<ul>
@@ -39,7 +33,7 @@
 									<li><a href="right-sidebar.html">Recent Projects</a></li>
 									<li><a href="no-sidebar.html">No Sidebar</a></li>
 									<li><a href="contact.html">Contact</a></li>
-									<li><a href="login.php">Log-In</a></li>
+									<li><a href="logintest.php">Log-In</a></li>
 									<li class="submenu">
 										<a href="#">Submenu</a>
 										<ul>
@@ -93,16 +87,47 @@
 					include 'config/database.php';
 					$php_errormsg = "";
 					if (!empty($_POST)){
-						$query="INSERT into appointments (fname, lname, email, description) VALUES (:fname, :lname, :email, :description)";
-						$stmt=$con->prepare($query);
-						$stmt->bindParam(":fname",$_POST['fname'],PDO::PARAM_STR);
-						$stmt->bindParam(":lname",$_POST['lname'],PDO::PARAM_STR);
-						$stmt->bindParam(":email",$_POST['email'],PDO::PARAM_STR);
-						$stmt->bindParam(":description",$_POST['description'],PDO::PARAM_STR);
-						$stmt->execute();
-					}else {
-						$php_errormsg = "Please Fully fill out form.";
+						
+
+						// Testing the variables
+						if(empty($_POST['fname'])){
+							$php_errormsg.="<div>Not Correct.</div>";
+						}
+						echo "<br>";
+						
+						if(empty($_POST['lname'])){
+							$php_errormsg.="<div>Not Correct.</div>";
+						}
+						echo "<br>";
+						
+						if(empty($_POST['email'])){
+							$php_errormsg.="<div>Not Correct.</div>";
+						}
+						echo "<br>";
+						
+						if(empty($_POST['description'])){
+							$php_errormsg.="<div>Not Correct.</div>";
+						}
+						echo "<br>";
+
+						echo "{$php_errormsg}";
+
+						if(empty($php_errormsg)){
+
+							$query="INSERT into appointments (fname, lname, email, description) VALUES (:fname, :lname, :email, :description)";
+							$stmt=$con->prepare($query);
+							$stmt->bindParam(":fname",$_POST['fname'],PDO::PARAM_STR);
+							$stmt->bindParam(":lname",$_POST['lname'],PDO::PARAM_STR);
+							$stmt->bindParam(":email",$_POST['email'],PDO::PARAM_STR);
+							$stmt->bindParam(":description",$_POST['description'],PDO::PARAM_STR);
+							$stmt->execute();
+						}
+						echo "<br>";
+
+						/*else ($_POST['fname'] == "" || $_POST['lname'] == "" || $_POST['email'] == "" || $_POST['description'] == "" ) {
+						echo "<script>alert('Please select category of the question entered.')</script>"; */
 					}
+					
 						
 				?>
 				<!-- Main -->
@@ -120,7 +145,11 @@
 							<textarea type="text" id="description" name="description">Enter description of what you want done...</textarea>
 							
 							<input id="submitbutt" type="submit" value="Create Appointment">
-						  </form>
+							
+						</form>
+						<form action="login.php">
+							<input id="readbutt" type="submit" value ="Read Past Appointments"  >
+						</form>
 					</header>
 				</article>
 

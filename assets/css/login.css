@@ -86,6 +86,11 @@ EDIT ON
         margin-left: 35%;
         font-size: 13px;
         box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
+        margin-left: 10px;
+    }
+
+    #submitbutt {
+        margin-left: 170px;
     }
     
     .forgot {
