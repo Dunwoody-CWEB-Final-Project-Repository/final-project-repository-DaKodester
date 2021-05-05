@@ -1,5 +1,22 @@
 <?PHP
+	session_start();
 	include 'config/database.php';
+
+	if (strlen($_SESSION['userlogin']) == 0){
+		header('location:logintest.php');
+	}
+	else{
+		$email=$_SESSION['userlogin'];
+        $getID="SELECT userID, firstName
+                FROM users
+                WHERE email = :email;";
+        $getIDSTMT=$con->prepare($getID);
+        $getIDSTMT->bindParam(":email", $email);
+        $getIDSTMT->execute();
+
+        $row = $getIDSTMT->fetch(PDO::FETCH_ASSOC);
+        $userID = htmlspecialchars($row['userID'], ENT_QUOTES);
+		$firstName = htmlspecialchars($row['firstName'], ENT_QUOTES);
 ?>
 
 
@@ -11,6 +28,7 @@
 -->
 <html>
 	<head>
+	
 		<title>Cody's Car Wash</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
@@ -21,8 +39,9 @@
 		<div id="page-wrapper">
 
 			<!-- Header -->
+			
 				<header id="header" class="alt">
-					<h1 id="logo"><a href="index.html">Cody's <span>Car Wash</span></a></h1>
+					<h1 id="logo"><a href="index.php">Cody's <span>Car Wash</span></a></h1>
 					<nav id="nav">
 						<ul>
 							<li class="current"><a href="index.php">Welcome</a></li>
@@ -49,7 +68,7 @@
 
 							<li><a href="createaccount.php" class="button primary">Sign Up</a></li>
 
-							<li><a href="login.php" class="button primary">Log-In</a></li>
+							<li><a href="logout.php" class="button primary">Log-Out</a></li>
 						</ul>
 					</nav>
 				</header>
@@ -101,12 +120,12 @@
 						echo "<br>";
 						
 						if(empty($_POST['email'])){
-							$php_errormsg.="<div>Not Correct.</div>";
+							$php_errormsg.="<div>No Email Posted.</div>";
 						}
 						echo "<br>";
 						
 						if(empty($_POST['description'])){
-							$php_errormsg.="<div>Not Correct.</div>";
+							$php_errormsg.="<div>Please Enter a Description for my records.</div>";
 						}
 						echo "<br>";
 
@@ -114,22 +133,33 @@
 
 						if(empty($php_errormsg)){
 
-							$query="INSERT into appointments (fname, lname, email, description) VALUES (:fname, :lname, :email, :description)";
+							$query="INSERT into appointments (fname, lname, email, description, userID) VALUES (:fname, :lname, :email, :description, :userID)";
 							$stmt=$con->prepare($query);
 							$stmt->bindParam(":fname",$_POST['fname'],PDO::PARAM_STR);
 							$stmt->bindParam(":lname",$_POST['lname'],PDO::PARAM_STR);
 							$stmt->bindParam(":email",$_POST['email'],PDO::PARAM_STR);
 							$stmt->bindParam(":description",$_POST['description'],PDO::PARAM_STR);
+							$stmt->bindParam(":userID",$userID,PDO::PARAM_STR);
 							$stmt->execute();
 						}
 						echo "<br>";
+
+						
 
 						/*else ($_POST['fname'] == "" || $_POST['lname'] == "" || $_POST['email'] == "" || $_POST['description'] == "" ) {
 						echo "<script>alert('Please select category of the question entered.')</script>"; */
 					}
 					
+					
 						
 				?>
+				<?php 
+				if( isset($_SESSION['userlogin']) )
+				{
+					echo "<h2 style='text-align: center;'>Hello " . $firstName."</h2>";
+				}
+				?>
+				
 				<!-- Main -->
 				<article id="main">	
 
@@ -147,7 +177,7 @@
 							<input id="submitbutt" type="submit" value="Create Appointment">
 							
 						</form>
-						<form action="login.php">
+						<form action="read_appointments.php">
 							<input id="readbutt" type="submit" value ="Read Past Appointments"  >
 						</form>
 					</header>
@@ -202,3 +232,6 @@
 
 	</body>
 </html>
+<?php
+	}
+?>
