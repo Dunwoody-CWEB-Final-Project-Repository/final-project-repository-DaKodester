@@ -1,21 +1,13 @@
 <?PHP
 	session_start();
-	include 'config/database.php';
+	include '../config/database.php';
 
 	if (strlen($_SESSION['userlogin']) == 0){
 		header('location:logintest.php');
 	}
 	else{
 		$email=$_SESSION['userlogin'];
-        $getID="SELECT userID
-                FROM users
-                WHERE email = :email;";
-        $getIDSTMT=$con->prepare($getID);
-        $getIDSTMT->bindParam(":email", $email);
-        $getIDSTMT->execute();
 
-        $row = $getIDSTMT->fetch(PDO::FETCH_ASSOC);
-        $userID = htmlspecialchars($row['userID'], ENT_QUOTES);
 ?>
 
 <!DOCTYPE HTML>
@@ -39,11 +31,6 @@
 }
 </style>
     <?php
-    // include configuration file
-    include 'config/database.php';
-
-    // include database connection
-    include 'config/database.php';
 
     // get passed parameter value, in this case, the record ID
     // isset() is a PHP function used to verify if a value is there or not
@@ -55,7 +42,6 @@
     // prepare 'select' query
     $query = "SELECT fname, lname, email, description, appointmentID
                 FROM appointments
-                WHERE userID=:userID
                 ORDER BY fname";
 
     $stmt = $con->prepare( $query );

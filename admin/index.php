@@ -1,22 +1,13 @@
 <?PHP
 	session_start();
-	include 'config/database.php';
+	include '../config/database.php';
 
 	if (strlen($_SESSION['userlogin']) == 0){
 		header('location:logintest.php');
 	}
 	else{
 		$email=$_SESSION['userlogin'];
-        $getID="SELECT userID, firstName
-                FROM users
-                WHERE email = :email;";
-        $getIDSTMT=$con->prepare($getID);
-        $getIDSTMT->bindParam(":email", $email);
-        $getIDSTMT->execute();
-
-        $row = $getIDSTMT->fetch(PDO::FETCH_ASSOC);
-        $userID = htmlspecialchars($row['userID'], ENT_QUOTES);
-		$firstName = htmlspecialchars($row['firstName'], ENT_QUOTES);
+	
 ?>
 
 
@@ -32,8 +23,8 @@
 		<title>Cody's Car Wash</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
 	</head>
 	<body class="index is-preload">
 		<div id="page-wrapper">
@@ -101,7 +92,6 @@
 				
 
 				<?php
-					include 'config/database.php';
 					$php_errormsg = "";
 					if (!empty($_POST)){
 						
@@ -151,12 +141,7 @@
 					
 						
 				?>
-				<?php 
-				if( isset($_SESSION['userlogin']) )
-				{
-					echo "<h2 style='text-align: center;'>Hello " . $firstName."</h2>";
-				}
-				?>
+				
 				
 				<!-- Main -->
 				<article id="main">	
@@ -219,14 +204,14 @@
 		</div>
 
 		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.dropotron.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/jquery.dropotron.min.js"></script>
+			<script src="../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
 
 	</body>
 </html>
