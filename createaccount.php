@@ -46,7 +46,9 @@
 			//checking hashpass
 			$stmt->bindParam(":cust_password",$hashedpass,PDO::PARAM_STR);
 			$stmt->execute();
+			echo "<script>window.location = 'logintest.php'</script>";
 		}
+		
 
 		
 		
@@ -135,7 +137,7 @@
 											</div>
 											<div class="col-12">
 												<ul class="buttons">
-													<li><input name="signup" type="submit" class="special" value="Make Account" /></li>
+													<li><input name="signup" type="submit" class="special" value="Make Account" href="logintest.php" /></li>
 												</ul>
 											</div>	
 										</div>
