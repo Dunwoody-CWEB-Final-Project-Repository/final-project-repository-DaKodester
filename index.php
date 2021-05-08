@@ -140,7 +140,7 @@
 							$stmt->bindParam(":userID",$userID,PDO::PARAM_STR);
 							$stmt->execute();
 						}
-						echo "<br>";
+						echo "Thank you for your appointment, I will email you soon.";
 
 						
 
