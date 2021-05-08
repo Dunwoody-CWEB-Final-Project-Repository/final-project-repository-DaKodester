@@ -49,12 +49,14 @@
                         <p>Use this form to send me a email asking any question you may have!</p>
                     </header>
 
+					
+
                     <!-- One -->
                         <section class="wrapper style4 special container medium">
 
                             <!-- Content -->
                                 <div class="content">
-                                    <form>
+                                    <form form method="POST" action="contact.php">
                                         <div class="row gtr-50">
                                             <div class="col-6 col-12-mobile">
                                                 <input type="text" name="name" placeholder="Name" />
@@ -70,7 +72,7 @@
                                             </div>
                                             <div class="col-12">
                                                 <ul class="buttons">
-                                                    <li><input type="submit" class="special" value="Send Message" /></li>
+                                                    <li><input type="submit" name="sumbit" class="special" value="Send Message" /></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -79,64 +81,31 @@
 
                         </section>
 
-                        <?php
-                        if ( isset($_POST ['submit'] ) ){
-                            
+						<?php
+                        if (isset($_POST ['submit'])){
+                            $to = "CPDriver1998@gmail.com";
+							$from = $_POST ["$visitor_email"];
+
                             $name = $_POST['name'];
                             $visitor_email = $_POST['email'];
                             $visitor_subject = $_POST['subject'];
                             $message = $_POST['message'];
-
-                            $email_from = "$visitor_email";
-
-                            $email_subject = "New Form submission";
                         
                             $email_body = "You have received a new message from the user $name.\n".
-                                "Here is the message:\n $message".
+                                "Here is the message:\n $message";
+							
+							
 
-                            $to = "CPDriver1998g@gmail.com";
+							$headers = "From: $email_from \r\n";
+							
+							$headers .= "Reply-To: $visitor_email \r\n";
+							
+							mail($to,$email_subject,$email_body,$message,$headers);
+							echo "Mail Sent we will contact you shortly";
 
-                            $headers = "From: $email_from \r\n";
-                            
-                            $headers .= "Reply-To: $visitor_email \r\n";
-                            
-                            mail($to,$email_subject,$email_body,$headers);
-                        
-                        }
-                        ?>
-                        <!-- Validation -->
-                        <?php
-                        function IsInjected($str)
-                        {
-                            $injections = array('(\n+)',
-                                '(\r+)',
-                                '(\t+)',
-                                '(%0A+)',
-                                '(%0D+)',
-                                '(%08+)',
-                                '(%09+)'
-                                );
-                                    
-                            $inject = join('|', $injections);
-                            $inject = "/$inject/i";
-                            
-                            if(preg_match($inject,$str))
-                            {
-                            return true;
-                            }
-                            else
-                            {
-                            return false;
-                            }
-                        }
-
-                        if(IsInjected($visitor_email))
-                        {
-                            echo "Bad email value!";
-                            exit;
-                        }
-                    
-                        ?>
+							
+						}
+                    ?>
 
                 </article>
 
