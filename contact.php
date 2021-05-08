@@ -1,14 +1,4 @@
-<?PHP
-	
-?>
-
-
 <!DOCTYPE HTML>
-<!--
-	Twenty by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html>
 	<head>
 		<title>Contact - Twenty by HTML5 UP</title>
@@ -56,7 +46,7 @@
 					<header class="special container">
 						<span class="icon solid fa-envelope"></span>
 						<h2>Get In Touch</h2>
-						<p>Use the form below to give /dev/null a piece of your mind.</p>
+						<p>Use this form to send me a email asking any question you may have!</p>
 					</header>
 
 					<!-- One -->
@@ -88,6 +78,65 @@
 								</div>
 
 						</section>
+
+						<?php
+						if ( isset($_POST ['submit'] ) ){
+							
+							$name = $_POST['name'];
+							$visitor_email = $_POST['email'];
+							$visitor_subject = $_POST['subject'];
+							$message = $_POST['message'];
+
+							$email_from = "$visitor_email";
+
+							$email_subject = "New Form submission";
+						
+							$email_body = "You have received a new message from the user $name.\n".
+								"Here is the message:\n $message".
+
+							$to = "CPDriver1998g@gmail.com";
+
+							$headers = "From: $email_from \r\n";
+							
+							$headers .= "Reply-To: $visitor_email \r\n";
+							
+							mail($to,$email_subject,$email_body,$headers);
+						
+						}
+						?>
+						<!-- Validation -->
+						<?php
+						function IsInjected($str)
+						{
+							$injections = array('(\n+)',
+								'(\r+)',
+								'(\t+)',
+								'(%0A+)',
+								'(%0D+)',
+								'(%08+)',
+								'(%09+)'
+								);
+									
+							$inject = join('|', $injections);
+							$inject = "/$inject/i";
+							
+							if(preg_match($inject,$str))
+							{
+							return true;
+							}
+							else
+							{
+							return false;
+							}
+						}
+
+						if(IsInjected($visitor_email))
+						{
+							echo "Bad email value!";
+							exit;
+						}
+					
+						?>
 
 				</article>
 
